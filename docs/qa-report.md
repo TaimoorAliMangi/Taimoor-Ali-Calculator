@@ -47,3 +47,9 @@ Local critical browser flows pass. Independent code/security review and local pe
 After the approved slider, role and Urdu changes: all eight unit tests and all eleven browser groups passed. Source re-review found no unsafe rendering in static i18n; local `/i18n.js` has the existing restrictive security headers and documentation paths remain 404. Viewport screenshots captured in English/Urdu at desktop/mobile sizes. The capture surface can repeat header pixels despite one verified DOM header; avoid treating capture stitching artifacts as app defects.
 
 Updated UAT performance measurement: 40,365 bytes across all six application assets, including the translation module and logo. After 100 warm-up runs, 1,000 calculations on local Node 24.19.0 gave p99 0.048 ms and maximum 0.340 ms. This verifies local calculation/asset targets, not national traffic capacity.
+
+## Production smoke — 13 October 2026
+
+All eleven reusable browser check groups passed anonymously against the public HTTPS URL after approved publication. Root, app.js, i18n.js and logo loaded. Private package paths serve app HTML fallback, not package content. Hosting security-header limitations are recorded as SEC-P01 in security-review.md; no critical/high issue identified. The source calculation module was unchanged for deployment.
+
+Final focused production check after meta-policy deployment passed: calculation results, Urdu toggle, restrictive meta CSP, no-referrer policy and blocked outbound fetch. The full eleven-group public suite passed before this policy-only change; it was not unnecessarily rerun. Remaining host HTTP-header limitations are Low and documented.

@@ -55,3 +55,17 @@ Release requires **zero known unresolved critical or high-severity findings**, p
 Cloud publication remains pending explicit user sign-off on the tested local application. Production-only security verification takes place after deployment and before the hosted result is declared ready.
 
 UAT branch package scan: all 23 intended files, including the three product PDFs, were checked for common GitHub/OpenAI token and private-key patterns; none found. Existing repository history contains only the inspected Git attributes initial commit. Future transcript/ZIP and production checks remain pending.
+
+## Production evidence — 13 October 2026
+
+Public deployment: https://pakistan-housing-calculator-taimoor.snug-rhino-1056.chatgpt.site . Anonymous HTTPS returned 200. Application JavaScript, static Urdu dictionary and local logo returned 200 with appropriate content types. All eleven existing critical browser groups passed against this public URL, including calculations, roles, Urdu/RTL, injection/length rejection and no calculation-triggered requests/storage.
+
+Documentation, transcript, Git configuration and manifest paths return the app HTML fallback with 200, rather than exposing those files. Cloudflare injects varying challenge parameters, so raw fallback response bytes differ from the root; inspected content is the application, not the requested private file.
+
+**SEC-P01 — Low, infrastructure limitation:** the host does not apply the supplied `_headers` file. Actual HTTPS root response lacked Content-Security-Policy, nosniff, framing, referrer and Permissions-Policy headers. Local headers must not be reported as production headers. Recommend a meta CSP/referrer policy for supported browser controls; framing and nosniff require host response-header support. No critical/high exploitable issue identified from this gap in the reviewed static app, but defense-in-depth is incomplete.
+
+Cloudflare adds security challenge JavaScript and a Secure/HttpOnly bot-management cookie. The application does not transmit entered loan values; host-level security processing is separate from application privacy behavior. Final package/Git-history secret scan is still a packaging responsibility.
+
+### SEC-P01 mitigation verified
+
+Final deployment includes restrictive meta CSP and `no-referrer` meta policy. Browser check confirmed these policies, successful calculation and Urdu switching; an attempted outbound fetch was rejected under `connect-src 'none'`. This partially mitigates SEC-P01. HTTP framing restrictions, nosniff and Permissions-Policy remain unsupported/unverified on Sites; meta CSP cannot enforce `frame-ancestors`. Residual defense-in-depth limitation is Low. No claim that all production security headers passed is made.

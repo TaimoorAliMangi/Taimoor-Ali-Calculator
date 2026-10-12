@@ -1,5 +1,7 @@
 # Pakistan Housing Loan Calculator
 
+[Open the public calculator](https://pakistan-housing-calculator-taimoor.snug-rhino-1056.chatgpt.site)
+
 An English and Urdu, browser-based planning calculator for prospective subsidised housing borrowers, family advisers and housing-finance advisers. Developer credit: KnowledgeCity, as requested by the project owner. This is an independent estimator, not a government service or a bank offer.
 
 ## Run locally
@@ -27,7 +29,7 @@ npx playwright install chromium
 node tests/browser-smoke.mjs
 ```
 
-Eight unit tests and eleven critical browser scenario groups pass for this UAT version. See docs/qa-report.md for evidence. Local UAT was signed off on 13 October 2026; the project owner authorized merging into main. Public-hosting verification remains pending.
+Eight unit tests and eleven critical browser scenario groups pass for this UAT version. See docs/qa-report.md for evidence. Local UAT was signed off on 13 October 2026; the project owner authorized merging into main. Public hosting is verified at https://pakistan-housing-calculator-taimoor.snug-rhino-1056.chatgpt.site; security limitations are documented in docs/security-review.md.
 
 ## Calculation assumptions
 
@@ -56,7 +58,7 @@ Developed with OpenAI Codex desktop and collaborating agents. The system identif
 
 ## Delivery status
 
-Local implementation is complete. Independent code/security review and critical QA passed; no unresolved critical/high code finding was identified. Production hosting checks and final package scans remain pending. The reviewed UAT source and three product PDFs are delivered through the uat-feedback branch. The full available user-visible text transcript is saved in transcripts/session-01.md with a matching PDF. Final ZIP and cloud release remain part of the final delivery stage. Never publish credentials, installed dependencies or temporary review files. The hosted application must contain only application assets; public GitHub documentation and transcript are separate deliverables.
+Local implementation is complete. Independent code/security review and critical QA passed; no unresolved critical/high code finding was identified. Production critical checks passed; hosting-specific defense-in-depth limitations are documented in docs/security-review.md. The reviewed UAT source and three product PDFs are delivered through the uat-feedback branch. The full available user-visible text transcript is saved in transcripts/session-01.md with a matching PDF. A ZIP of this package is delivered alongside the source folder. Never publish credentials, installed dependencies or temporary review files. The hosted application must contain only application assets; public GitHub documentation and transcript are separate deliverables.
 
 GitHub repository name: **Taimoor-Ali-Calculator** (exact capitalization requested by the project owner).
 
@@ -69,3 +71,11 @@ GitHub review branch: [uat-feedback](https://github.com/TaimoorAliMangi/Taimoor-
 ## AI chat transcript
 
 [Markdown transcript](transcripts/session-01.md) and [PDF transcript](transcripts/session-01.pdf) preserve the available user-visible session, including plans, progress, questions and selected responses. Internal reasoning, system context and raw tool logs are excluded. The export records its cutoff; later messages require a new export.
+
+## Public hosting
+
+[Live calculator](https://pakistan-housing-calculator-taimoor.snug-rhino-1056.chatgpt.site). The supplied Site identity is in .openai/hosting.json; it is not a credential. Run npm run build to create dist/ from only the six allowlisted app assets. Documents, transcript, tests and Git files are not deployed. The hosting workflow requires separately authenticated Sites access; no token is stored in this package.
+
+The app does not transmit or persist entered financial scenarios. Hosting infrastructure processes normal request/security metadata and may set Cloudflare security cookies. Browser meta policies restrict executable resources and referrers. Sites currently ignores _headers, so server-only framing and MIME-sniffing header controls are not claimed. See the security review for evidence and limits.
+
+A custom domain is optional. Compare registration and renewal prices at Cloudflare Registrar (https://domains.cloudflare.com/) and Porkbun (https://porkbun.com/products/domains). No domain purchase is necessary for the supplied public URL.
